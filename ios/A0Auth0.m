@@ -46,8 +46,9 @@ RCT_EXPORT_METHOD(hide) {
 RCT_EXPORT_METHOD(showUrl:(NSString *)urlString
                   usingEphemeralSession:(BOOL)ephemeralSession
                   closeOnLoad:(BOOL)closeOnLoad
+                  useLegacyAuthentication:(BOOL)useLegacyAuthentication
                   callback:(RCTResponseSenderBlock)callback) {
-    if (@available(iOS 11.0, *)) {
+    if (useLegacyAuthentication == FALSE && @available(iOS 11.0, *)) {
         self.sessionCallback = callback;
         self.closeOnLoad = closeOnLoad;
         [self presentAuthenticationSession:[NSURL URLWithString:urlString] usingEphemeralSession:ephemeralSession];

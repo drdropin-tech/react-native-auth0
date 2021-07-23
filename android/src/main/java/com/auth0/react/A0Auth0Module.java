@@ -52,7 +52,7 @@ public class A0Auth0Module extends ReactContextBaseJavaModule implements Activit
     }
 
     @ReactMethod
-    public void showUrl(String url, boolean closeOnLoad, Callback callback) {
+    public void showUrl(String url, boolean closeOnLoad, boolean useLegacyAuthentication, Callback callback) {
         final Activity activity = getCurrentActivity();
         final Uri parsedUrl = Uri.parse(url);
         this.callback = callback;

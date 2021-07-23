@@ -1,9 +1,9 @@
-import Agent from './agent';
-import {NativeModules, Platform} from 'react-native';
-
+import { NativeModules, Platform } from 'react-native';
 import url from 'url';
 import AuthError from '../auth/authError';
 import verifyToken from '../jwt';
+import Agent from './agent';
+
 
 const {A0Auth0} = NativeModules;
 
@@ -96,7 +96,7 @@ export default class WebAuth {
       };
       const authorizeUrl = this.client.authorizeUrl(query);
       return agent
-        .show(authorizeUrl, options.ephemeralSession)
+        .show(authorizeUrl, options.ephemeralSession, false, options.useLegacyAuthentication)
         .then(redirectUrl => {
           if (!redirectUrl || !redirectUrl.startsWith(redirectUri)) {
             throw new AuthError({

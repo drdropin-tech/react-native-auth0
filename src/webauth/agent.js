@@ -1,7 +1,7 @@
-import {NativeModules, Linking, Platform} from 'react-native';
+import { Linking, NativeModules, Platform } from 'react-native';
 
 export default class Agent {
-  show(url, ephemeralSession = false, closeOnLoad = false) {
+  show(url, ephemeralSession = false, closeOnLoad = false, useLegacyAuthentication = false) {
     if (!NativeModules.A0Auth0) {
       return Promise.reject(
         new Error(
@@ -17,7 +17,7 @@ export default class Agent {
         resolve(event.url);
       };
       const params =
-        Platform.OS === 'ios' ? [ephemeralSession, closeOnLoad] : [closeOnLoad];
+        Platform.OS === 'ios' ? [ephemeralSession, closeOnLoad, useLegacyAuthentication] : [closeOnLoad, useLegacyAuthentication];
       Linking.addEventListener('url', urlHandler);
       NativeModules.A0Auth0.showUrl(url, ...params, (error, redirectURL) => {
         Linking.removeEventListener('url', urlHandler);
